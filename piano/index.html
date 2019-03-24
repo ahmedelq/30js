@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Simple Piano Player</title>
+        <meta charset="UTF-8">
+        <meta name="description" content="A simple mini-piano player">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="css/main.css">
+    </head>
+    <body>
+
+
+        <main>
+            <div class="keyboard">
+                
+                <div class="key" data-key="65">
+                    <kbd>A</kbd>
+                </div>
+                
+                <div class="key" data-key="83">
+                        <kbd>S</kbd>
+                </div>
+                
+                <div class="key" data-key="68">
+                        <kbd>D</kbd>
+                </div>
+                
+                <div class="key" data-key="70">
+                        <kbd>F</kbd>
+                </div>
+                
+                <div class="key" data-key="74">
+                        <kbd>J</kbd>
+                </div>
+                
+                <div class="key" data-key="75">
+                        <kbd>K</kbd>
+                </div>
+                
+                <div class="key" data-key="76">
+                        <kbd>L</kbd>
+                </div>
+           
+                
+            </div>
+
+            <audio src="audio/A3.mp3" data-key="65"></audio>
+            <audio src="audio/B3.mp3" data-key="83"></audio>
+            <audio src="audio/C3.mp3" data-key="68"></audio>
+            <audio src="audio/D3.mp3" data-key="70"></audio>
+            <audio src="audio/E3.mp3" data-key="74"></audio>
+            <audio src="audio/F3.mp3" data-key="75"></audio>
+            <audio src="audio/G3.mp3" data-key="76"></audio>
+
+        </main>
+
+    <script>
+        window.addEventListener("keydown", (e) => {
+        
+
+            let audio = document.querySelector('audio[data-key="' +  e.keyCode + '"]');
+            let key = document.querySelector('div[data-key="' +  e.keyCode + '"]');
+
+            if (!audio) {return;}
+            audio.currentTime =0;
+            audio.play();
+
+            key.classList.add('play');
+
+        });
+        
+        let keys = document.querySelectorAll('.key');
+   
+        keys.forEach(key => key.addEventListener('transitionend', function rmClass(e) {
+            if(e.propertyName !== "transform") return;
+            this.classList.remove('play');
+        }));
+    </script>
+    </body>
+</html>
