@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Time now</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="css/main.css">
+    </head>
+    <body>
+        <main>
+            <div class="digitalTime">
+                <div class="digHr">HR</div>
+                <div class="digMin">Min</div>
+                <div class="digSec">Sec</div>
+            </div>
+                <div class="clock">
+                <div class="clock-face">
+                    <div class="hand hr"></div>
+                    <div class="hand min"></div>
+                    <div class="hand sec"></div>
+                </div>
+            </div>
+        </main>
+    </body>
+    <script>
+        const minHand = document.querySelector('.min');
+        const hrHand = document.querySelector('.hr');
+        const secHand = document.querySelector('.sec');
+
+        const digHr = document.querySelector('.digHr');
+        const digMin = document.querySelector('.digMin');
+        const digSec = document.querySelector('.digSec');
+        
+        let timeToDeg = (sec, measurement) => {
+            return (sec / measurement) * 360.0;
+        }
+        
+        function update(){
+            const now = new Date();
+            let secDeg = timeToDeg(now.getSeconds(), 60.0) + 90;
+            let minDeg = timeToDeg(now.getMinutes(), 60.0) + 90;
+            let hrDeg = timeToDeg(now.getHours(), 24.0) + 90; 
+            secHand.style.transform = "rotate("+ secDeg +"deg)";
+            minHand.style.transform = "rotate("+ minDeg +"deg)";
+            hrHand.style.transform = "rotate("+ hrDeg +"deg)";
+            
+            digSec.innerHTML = now.getSeconds();
+            digMin.innerHTML = now.getMinutes();
+            digHr.innerHTML = now.getHours();
+
+        }
+        
+        setInterval(update, 1000);
+    </script>
+</html>
